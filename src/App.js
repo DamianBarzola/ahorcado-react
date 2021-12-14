@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import Login from "./pages/Login";
+import Game from "./pages/Game";
+import "./App.css";
+import { useContext } from "react";
+import { GameContext } from "./GameContext";
 
 function App() {
+  const { name } = useContext(GameContext);
+  const renderView = () => {
+    if (!name) return <Login />;
+    return <Game />;
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div
+        style={{
+          marginTop: "4%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {renderView()}
+      </div>
+    </>
   );
 }
 
