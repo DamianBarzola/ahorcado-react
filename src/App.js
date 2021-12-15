@@ -5,7 +5,7 @@ import { useContext } from "react";
 import { GameContext } from "./GameContext";
 
 function App() {
-  const { name } = useContext(GameContext);
+  const { name, result } = useContext(GameContext);
   const renderView = () => {
     if (!name) return <Login />;
     return <Game />;

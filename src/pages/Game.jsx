@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Hangman from "../components/Hangman";
+import { GameContext } from "../GameContext";
 
 const Game = () => {
+  const [letter, setletter] = useState("");
+  const { gameState, tryletter, result, reset, logout, vidas } =
+    useContext(GameContext);
+  const { resultado, letras_erroneas, palabra } = gameState;
+
+  const letterOnChange = (e) => {
+    setletter(e.target.value);
+  };
+
   return (
     <div className="pt-5">
       <div
@@ -19,39 +29,85 @@ const Game = () => {
         <div className="row">
           <div className="col d-flex justify-content-center">
             <div className="text-center">
-              <Hangman />
+              <Hangman vidas={vidas} />
               <div className="mt-2">
                 <h4>Letras Incorrectas</h4>
-                <h5>asd</h5>
+                <h6>
+                  {letras_erroneas.length !== 0
+                    ? letras_erroneas.join(" ")
+                    : "Ninguna"}
+                </h6>
               </div>
             </div>
           </div>
           <div className="col d-flex align-items-center m-2">
-            <div className="row text-center">
-              <h1 className="">_ _ _ _ _ </h1>
-              <form className="mt-5 p-3 center">
-                <h5>Ingrese una letra</h5>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Letra"
-                  aria-describedby="basic-addon1"
-                  style={{
-                    width: "50%",
-                    marginLeft: "25%",
-                  }}
-                />
-                <button
-                  type="submit"
-                  className="btn btn-primary mt-3"
-                  style={{
-                    width: "30%",
-                  }}
-                >
-                  Probar
-                </button>
-              </form>
-            </div>
+            {result === "" ? (
+              <div className="row text-center">
+                <h1 className="">{resultado.join(" ")} </h1>
+                <div className="mt-5 p-3 center">
+                  <h5>Ingrese una letra</h5>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder="Letra"
+                    aria-describedby="basic-addon1"
+                    maxLength="1"
+                    value={letter}
+                    onChange={letterOnChange}
+                    style={{
+                      width: "50%",
+                      marginLeft: "25%",
+                    }}
+                  />
+                  <button
+                    className="btn btn-primary mt-3"
+                    style={{
+                      width: "30%",
+                    }}
+                    onClick={() => tryletter(letter)}
+                  >
+                    Probar
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <h1>
+                {" "}
+                <div className="row text-center">
+                  <h1>
+                    {result === "perdiste" ? (
+                      <b>Perdiste :( </b>
+                    ) : (
+                      <b>Ganaste :)</b>
+                    )}
+                  </h1>
+                  <h4 className="mt-5">La palabra era</h4>
+                  <h1 className="">{palabra} </h1>
+                  <div className="mt-3 p-3 center">
+                    <div>
+                      <button
+                        className="btn btn-primary mt-3"
+                        style={{
+                          width: "30%",
+                        }}
+                        onClick={() => reset()}
+                      >
+                        Volver a Jugar
+                      </button>
+                    </div>
+                    <button
+                      className="btn btn-secondary mt-3"
+                      style={{
+                        width: "30%",
+                      }}
+                      onClick={() => logout()}
+                    >
+                      Salir
+                    </button>
+                  </div>
+                </div>
+              </h1>
+            )}
           </div>
         </div>
       </div>

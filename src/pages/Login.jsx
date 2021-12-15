@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
 import { GameContext } from "../GameContext";
 
+import logo from "../images/logo.png";
+
 const Login = () => {
   const [name, setname] = useState("");
-  const { start, error } = useContext(GameContext);
+  const { start } = useContext(GameContext);
 
   const nameOnChange = (e) => {
     setname(e.target.value);
@@ -30,11 +32,7 @@ const Login = () => {
           }}
         >
           <div className="d-flex justify-content-center text-center">
-            <img
-              src="https://play-lh.googleusercontent.com/DX1AaUhjPz0WcH9ujjKf4J-295g1baIig0wAl2J8ZeUxIe6jRYZlwbTpkI6idgpA_g"
-              height="150px"
-              alt="Logo"
-            />
+            <img src={logo} height="150px" alt="Logo" />
           </div>
           <h3>Bienvenido al Ahorcado</h3>
           <h5>Nombre</h5>

@@ -17,10 +17,10 @@ const imgs = [
   hangman5,
   hangman6,
 ];
-const Hangman = () => {
+const Hangman = ({ vidas }) => {
   return (
     <div>
-      <img alt="" src={imgs[6]} />
+      <img alt="" src={imgs[vidas]} />
     </div>
   );
 };
