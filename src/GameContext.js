@@ -17,11 +17,14 @@ const GameProvider = ({ children }) => {
       method: "POST",
     });
     const state = await response.json();
-    setresult("");
-    console.log(state.vidas);
-    setvidas(state.vidas);
-    setGameState(state);
-    setname(state.name);
+    if (state.detail) {
+      alert(state.detail);
+    } else {
+      setresult("");
+      setvidas(state.vidas);
+      setGameState(state);
+      setname(state.name);
+    }
   }, []);
 
   const tryletter = useCallback(

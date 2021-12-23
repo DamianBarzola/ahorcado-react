@@ -42,11 +42,16 @@ const Login = () => {
             id="name"
             value={name}
             onChange={nameOnChange}
+            minLength="2"
+            maxLength="25"
           />
           <button
             className="btn btn-primary"
             id="loginBtn"
-            onClick={() => start(name)}
+            onClick={() => {
+              if (name !== "" && name.length >= 3 && name.length <= 25)
+                start(name);
+            }}
           >
             Ingresar
           </button>

@@ -32,7 +32,7 @@ const Game = () => {
               <Hangman vidas={vidas} />
               <div className="mt-2">
                 <h4>Letras Incorrectas</h4>
-                <h6>
+                <h6 id="letrasIncorrectas">
                   {letras_erroneas.length !== 0
                     ? letras_erroneas.join(" ")
                     : "Ninguna"}
@@ -43,11 +43,12 @@ const Game = () => {
           <div className="col d-flex align-items-center m-2">
             {result === "" ? (
               <div className="row text-center">
-                <h1 className="">{resultado.join(" ")} </h1>
+                <h1 id="palabra">{resultado.join(" ")} </h1>
                 <div className="mt-5 p-3 center">
                   <h5>Ingrese una letra</h5>
                   <input
                     type="text"
+                    id="inputLetter"
                     className="form-control"
                     placeholder="Letra"
                     aria-describedby="basic-addon1"
@@ -61,10 +62,14 @@ const Game = () => {
                   />
                   <button
                     className="btn btn-primary mt-3"
+                    id="btnTry"
                     style={{
                       width: "30%",
                     }}
-                    onClick={() => tryletter(letter)}
+                    onClick={() => {
+                      if (letter !== "" && letter.length === 1)
+                        tryletter(letter);
+                    }}
                   >
                     Probar
                   </button>
@@ -86,6 +91,7 @@ const Game = () => {
                   <div className="mt-3 p-3 center">
                     <div>
                       <button
+                        id="btnReset"
                         className="btn btn-primary mt-3"
                         style={{
                           width: "30%",
@@ -96,6 +102,7 @@ const Game = () => {
                       </button>
                     </div>
                     <button
+                      id="btnLogout"
                       className="btn btn-secondary mt-3"
                       style={{
                         width: "30%",
