@@ -7,6 +7,7 @@ const url = "http://localhost:8000";
 const GameProvider = ({ children }) => {
   const [name, setname] = useState();
   const [vidas, setvidas] = useState();
+  const [errorLogin, setErrorLogin] = useState("");
 
   const [result, setresult] = useState("");
 
@@ -18,9 +19,10 @@ const GameProvider = ({ children }) => {
     });
     const state = await response.json();
     if (state.detail) {
-      alert(state.detail);
+      setErrorLogin(state.detail);
     } else {
       setresult("");
+      setErrorLogin("");
       setvidas(state.vidas);
       setGameState(state);
       setname(state.name);
@@ -38,18 +40,14 @@ const GameProvider = ({ children }) => {
       const state = await response.json();
       if (state.respuesta) {
         if (state.respuesta === "letra repetida") {
-          console.log(state);
           alert("Letra repetida");
         } else if (state.respuesta === "ganaste") {
           setresult("ganaste");
         } else if (state.respuesta === "perdiste") {
           setvidas(0);
           setresult("perdiste");
-
-          console.log(state);
         }
       } else {
-        console.log(state);
         setvidas(state.vidas);
         setGameState(state);
       }
@@ -82,6 +80,7 @@ const GameProvider = ({ children }) => {
         vidas,
         gameState,
         result,
+        errorLogin,
         reset,
         start,
         tryletter,

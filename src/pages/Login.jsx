@@ -5,7 +5,7 @@ import logo from "../images/logo.png";
 
 const Login = () => {
   const [name, setname] = useState("");
-  const { start } = useContext(GameContext);
+  const { start, errorLogin } = useContext(GameContext);
 
   const nameOnChange = (e) => {
     setname(e.target.value);
@@ -43,18 +43,23 @@ const Login = () => {
             value={name}
             onChange={nameOnChange}
             minLength="2"
-            maxLength="25"
+            maxLength="30"
           />
           <button
             className="btn btn-primary"
             id="loginBtn"
             onClick={() => {
-              if (name !== "" && name.length >= 3 && name.length <= 25)
+              if (name !== "" && name.length >= 1 && name.length <= 30)
                 start(name);
             }}
           >
             Ingresar
           </button>
+          {errorLogin !== "" && (
+            <h6 className="text-danger mt-2 " id="errorLogin">
+              {errorLogin}
+            </h6>
+          )}
         </div>
       </div>
     </div>

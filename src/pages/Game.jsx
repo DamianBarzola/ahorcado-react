@@ -79,7 +79,7 @@ const Game = () => {
               <h1>
                 {" "}
                 <div className="row text-center">
-                  <h1>
+                  <h1 id="gameState">
                     {result === "perdiste" ? (
                       <b>Perdiste :( </b>
                     ) : (
