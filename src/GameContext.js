@@ -14,8 +14,13 @@ const GameProvider = ({ children }) => {
   const [gameState, setGameState] = useState(null);
 
   const start = useCallback(async (newname) => {
-    const response = await fetch(`${url}/start?nick=${newname}`, {
+    const data = {
+      name: newname,
+    };
+    const response = await fetch(`${url}/start`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
     const state = await response.json();
     if (state.detail) {
@@ -31,12 +36,15 @@ const GameProvider = ({ children }) => {
 
   const tryletter = useCallback(
     async (letter) => {
-      const response = await fetch(
-        `${url}/letter?nick=${name}&letter=${letter}`,
-        {
-          method: "POST",
-        }
-      );
+      const data = {
+        name: name,
+        letter: letter,
+      };
+      const response = await fetch(`${url}/letter`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
       const state = await response.json();
       if (state.respuesta) {
         if (state.respuesta === "letra repetida") {
@@ -56,16 +64,26 @@ const GameProvider = ({ children }) => {
   );
 
   const reset = useCallback(async () => {
-    const response = await fetch(`${url}/reset?nick=${name}`, {
+    const data = {
+      name: name,
+    };
+    const response = await fetch(`${url}/reset`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
     const state = await response.json();
     start(name);
   }, [name]);
 
   const logout = useCallback(async () => {
-    const response = await fetch(`${url}/reset?nick=${name}`, {
+    const data = {
+      name: name,
+    };
+    const response = await fetch(`${url}/reset`, {
       method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     });
     const state = await response.json();
     setresult("");
