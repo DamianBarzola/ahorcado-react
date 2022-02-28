@@ -8,8 +8,22 @@ const Game = () => {
     useContext(GameContext);
   const { resultado, letras_erroneas, palabra } = gameState;
 
+  // {
+  //   "name": "Agustin",
+  //   "palabra": "pato",
+  //   "vidas": 6,
+  //   "resultado": [
+  //     "_",
+  //     "_",
+  //     "_",
+  //     "_"
+  //   ],
+  //   "letras_erroneas": [],
+  //   "letter": "a"
+  // }
+
   const letterOnChange = (e) => {
-    setletter(e.target.value);
+    setletter(e.target.value.toLowerCase());
   };
 
   return (
@@ -33,9 +47,7 @@ const Game = () => {
               <div className="mt-2">
                 <h4>Letras Incorrectas</h4>
                 <h6 id="letrasIncorrectas">
-                  {letras_erroneas.length !== 0
-                    ? letras_erroneas.join(" ")
-                    : "Ninguna"}
+                  {letras_erroneas ? letras_erroneas.join(" ") : "Ninguna"}
                 </h6>
               </div>
             </div>
@@ -43,7 +55,7 @@ const Game = () => {
           <div className="col d-flex align-items-center m-2">
             {result === "" ? (
               <div className="row text-center">
-                <h1 id="palabra">{resultado.join(" ")} </h1>
+                <h1 id="palabra">{resultado && resultado.join(" ")} </h1>
                 <div className="mt-5 p-3 center">
                   <h5>Ingrese una letra</h5>
                   <input
@@ -67,8 +79,17 @@ const Game = () => {
                       width: "30%",
                     }}
                     onClick={() => {
-                      if (letter !== "" && letter.length === 1)
-                        tryletter(letter);
+                      var letters = /^[A-Za-z]+$/;
+                      if (letter.match(letters)) {
+                        if (letter !== "" && letter.length === 1)
+                          tryletter(
+                            letter,
+                            palabra,
+                            vidas,
+                            resultado,
+                            letras_erroneas
+                          );
+                      }
                     }}
                   >
                     Probar
@@ -89,7 +110,7 @@ const Game = () => {
                   <h4 className="mt-5">La palabra era</h4>
                   <h1 className="">{palabra} </h1>
                   <div className="mt-3 p-3 center">
-                    <div>
+                    {/* <div>
                       <button
                         id="btnReset"
                         className="btn btn-primary mt-3"
@@ -100,7 +121,7 @@ const Game = () => {
                       >
                         Volver a Jugar
                       </button>
-                    </div>
+                    </div> */}
                     <button
                       id="btnLogout"
                       className="btn btn-secondary mt-3"
